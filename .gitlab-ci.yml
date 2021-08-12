@@ -42,7 +42,7 @@ build-site:
     key: "${CI_COMMIT_REF_SLUG}"
     paths:
       - node_modules
-      - build
+      - dist
 
   variables:
     NODE_ENV: "production"
@@ -59,7 +59,7 @@ build-site:
     when: on_success
     expire_in: 1 day
     paths:
-      - build
+      - dist
 
 .docker-job:
 
