@@ -65,6 +65,7 @@ build-site:
 
   variables:
     COMMIT_SHA_FILEPATH: /usr/static/commit.sha
+    IMAGE_NAME: feriapp/gestione-ore-website
 
   dependencies:
     - build-site
