@@ -64,7 +64,7 @@ build-site:
 .docker-job:
 
   variables:
-    COMMIT_SHA_FILEPATH: /usr/static/commit.sha
+    COMMIT_SHA_FILEPATH: /etc/nginx/commit.sha
     IMAGE_NAME: feriapp/gestione-ore-website
 
   dependencies:
