@@ -13,6 +13,6 @@ RUN touch ./off \
 
 WORKDIR /usr/static
 
-COPY ./dist .
+COPY ./build .
 
 USER nginx
