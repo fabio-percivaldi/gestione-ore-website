@@ -3,9 +3,55 @@ include:
     file: '/build/node/template-node-npm.yml'
     ref: master
 
+test:
+  stage: test
+
+  coverage: '/^Statements\s*:\s*([^%]+)/'
+  script:
+    - npm run lint
+
+  cache:
+    key: "${CI_COMMIT_REF_SLUG}"
+    paths:
+      - node_modules
+    policy: pull
+
+  artifacts:
+    reports:
+      cobertura: coverage/cobertura-coverage.xml
+
+build-site:
+  stage: post-test
+
+  cache:
+    key: "${CI_COMMIT_REF_SLUG}"
+    paths:
+      - node_modules
+      - dist
+
+  variables:
+    NODE_ENV: "production"
+    INLINE_RUNTIME_CHUNK: "false"
+
+  script:
+     - npm run build
+
+  only:
+    - master
+    - tags
+
+  artifacts:
+    when: on_success
+    expire_in: 1 day
+    paths:
+      - dist
+
+
 .docker-job:
 
   variables:
     COMMIT_SHA_FILEPATH: /etc/nginx/commit.sha
     IMAGE_NAME: feriapp/gestione-ore-website
 
+  dependencies:
+    - build-site
